@@ -1,0 +1,56 @@
+syntax = "proto3";
+
+package book;
+
+option go_package = "grpc_server/book";
+
+message BookInfo {
+   int64 id = 1;
+   string name = 2;
+   string content = 3;
+}
+message AddBookReq {
+  string name = 1;
+  string content = 2;
+}
+message AddBookResp{
+  BookInfo book = 1;
+  string err_info = 2;
+}
+message ModifyBookReq{
+  int64 id = 1;
+  string name = 2;
+  string content = 3;
+
+}
+message ModifyBookResp{
+  BookInfo book = 1;
+  string err_info = 2;
+}
+message QueryBookReq{
+    repeated int64 id = 1;
+    repeated string name = 2;
+}
+message QueryBookResp{
+  repeated BookInfo books = 1;
+  string err_info = 2;
+}
+
+message DeleteBookReq{
+  int64 id = 1;
+}
+message DeleteBookResp{
+  string err_info = 1;
+}
+
+
+
+
+
+
+service Book{
+    rpc AddBook(AddBookReq) returns (AddBookResp) {}
+    rpc ModifyBook(ModifyBookReq) returns (ModifyBookResp){}
+    rpc QueryBook(QueryBookReq) returns (QueryBookResp){}
+    rpc DeleteBook(DeleteBookReq) returns (DeleteBookResp){}
+}
